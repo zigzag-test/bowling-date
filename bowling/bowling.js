@@ -5,13 +5,8 @@ function countBowlingScore(input) {
   const resultArr = [];
 
   let head = 0;
-  let frame = 0;
 
   while (head < inputArr.length) {
-    if (frame >= 10) {
-      break;
-    }
-
     const prevScore = utils.getPrevScore(resultArr);
 
     // 스트라이크
@@ -35,7 +30,6 @@ function countBowlingScore(input) {
 
       resultArr.push(totalScore);
       head += 1; // 현재 샷이 스트라이크면 다음 프레임은 바로 다음 샷이므로 head를 1만 전진시킨다
-      frame += 1;
 
       continue;
     }
@@ -57,7 +51,6 @@ function countBowlingScore(input) {
 
       resultArr.push(totalScore);
       head += 2;
-      frame += 1;
 
       continue;
     }
@@ -79,7 +72,6 @@ function countBowlingScore(input) {
 
       resultArr.push(totalScore);
       head += 2;
-      frame += 1;
 
       continue;
     }
