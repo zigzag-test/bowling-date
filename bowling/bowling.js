@@ -16,11 +16,22 @@ function countBowlingScore(input) {
 
     // 스트라이크
     if (inputArr[head] === 10) {
-      if (!utils.isEnoughToEvalScore(inputArr, head, utils.numOfShotToEvalScore.strike)) {
+      if (
+        !utils.isEnoughToEvalScore(
+          inputArr,
+          head,
+          utils.numOfShotToEvalScore.strike,
+        )
+      ) {
         break;
       }
 
-      const totalScore = prevScore + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.strike);
+      const totalScore = prevScore
+        + utils.getCurrentScore(
+          inputArr,
+          head,
+          utils.numOfShotToEvalScore.strike,
+        );
 
       resultArr.push(totalScore);
       head += 1; // 현재 샷이 스트라이크면 다음 프레임은 바로 다음 샷이므로 head를 1만 전진시킨다
@@ -31,11 +42,18 @@ function countBowlingScore(input) {
 
     // 스페어
     if (inputArr[head] + inputArr[head + 1] === 10) {
-      if (!utils.isEnoughToEvalScore(inputArr, head, utils.numOfShotToEvalScore.spare)) {
+      if (
+        !utils.isEnoughToEvalScore(
+          inputArr,
+          head,
+          utils.numOfShotToEvalScore.spare,
+        )
+      ) {
         break;
       }
 
-      const totalScore = prevScore + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.spare);
+      const totalScore = prevScore
+        + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.spare);
 
       resultArr.push(totalScore);
       head += 2;
@@ -46,11 +64,18 @@ function countBowlingScore(input) {
 
     // 오픈
     if (inputArr[head] + inputArr[head + 1] < 10) {
-      if (!utils.isEnoughToEvalScore(inputArr, head, utils.numOfShotToEvalScore.open)) {
+      if (
+        !utils.isEnoughToEvalScore(
+          inputArr,
+          head,
+          utils.numOfShotToEvalScore.open,
+        )
+      ) {
         break;
       }
 
-      const totalScore = prevScore + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.open);
+      const totalScore = prevScore
+        + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.open);
 
       resultArr.push(totalScore);
       head += 2;
