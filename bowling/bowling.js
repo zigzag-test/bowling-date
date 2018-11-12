@@ -1,88 +1,44 @@
 const utils = require('./utils');
 
-function countBowlingScore(input) {
-  const inputArr = utils.convertInputToIntArr(input);
+function loopInputArr(inputArr) {
   const resultArr = [];
-
   let head = 0;
 
   while (head < inputArr.length) {
+    const shotTypes = utils.getShotTypes(inputArr, head);
+
+    if (shotTypes === 'error') {
+      return shotTypes;
+    }
+
+    if (
+      !utils.hasEnoughValueToGetScore(
+        inputArr,
+        head,
+        utils.getShotProps[shotTypes].numOfShotsToGetScore,
+      )
+    ) {
+      break;
+    }
+
     const prevScore = utils.getPrevScore(resultArr);
+    const currentScore = utils.getCurrentScore(
+      inputArr,
+      head,
+      utils.getShotProps[shotTypes].numOfShotsToGetScore,
+    );
+    const totalScore = prevScore + currentScore;
 
-    // 스트라이크
-    if (inputArr[head] === 10) {
-      if (
-        !utils.isEnoughToEvalScore(
-          inputArr,
-          head,
-          utils.numOfShotToEvalScore.strike,
-        )
-      ) {
-        break;
-      }
-
-      const totalScore = prevScore
-        + utils.getCurrentScore(
-          inputArr,
-          head,
-          utils.numOfShotToEvalScore.strike,
-        );
-
-      resultArr.push(totalScore);
-      head += 1; // 현재 샷이 스트라이크면 다음 프레임은 바로 다음 샷이므로 head를 1만 전진시킨다
-
-      continue;
-    }
-
-    // 스페어
-    if (inputArr[head] + inputArr[head + 1] === 10) {
-      if (
-        !utils.isEnoughToEvalScore(
-          inputArr,
-          head,
-          utils.numOfShotToEvalScore.spare,
-        )
-      ) {
-        break;
-      }
-
-      const totalScore = prevScore
-        + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.spare);
-
-      resultArr.push(totalScore);
-      head += 2;
-
-      continue;
-    }
-
-    // 오픈
-    if (inputArr[head] + inputArr[head + 1] < 10) {
-      if (
-        !utils.isEnoughToEvalScore(
-          inputArr,
-          head,
-          utils.numOfShotToEvalScore.open,
-        )
-      ) {
-        break;
-      }
-
-      const totalScore = prevScore
-        + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.open);
-
-      resultArr.push(totalScore);
-      head += 2;
-
-      continue;
-    }
-
-    // 에러: 두 핀의 합이 10 초과
-    if (inputArr[head] + inputArr[head + 1] > 10) {
-      return 'error';
-    }
+    resultArr.push(totalScore);
+    head += utils.getShotProps[shotTypes].amountOfJump;
   }
 
   return resultArr;
+}
+
+function countBowlingScore(input) {
+  const inputArr = utils.convertInputToIntArr(input);
+  return loopInputArr(inputArr);
 }
 
 const inputExample = {
