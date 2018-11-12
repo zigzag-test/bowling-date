@@ -10,18 +10,22 @@ function convertInputToIntArr(input) {
   return convertedStrikeValueArr.map(value => parseInt(value, 10));
 }
 
+function getScoreArr(inputArr, head, numOfShotToEvalScore) {
+  return inputArr.slice(head, head + numOfShotToEvalScore);
+}
+
 function isEnoughToEvalScore(inputArr, head, numOfShotToEvalScore) {
-  const scoreArr = inputArr.slice(head, head + numOfShotToEvalScore);
+  const scoreArr = getScoreArr(inputArr, head, numOfShotToEvalScore);
   return scoreArr.length === numOfShotToEvalScore;
+}
+
+function getCurrentScore(inputArr, head, numOfShotToEvalScore) {
+  const scoreArr = getScoreArr(inputArr, head, numOfShotToEvalScore);
+  return scoreArr.reduce((prev, next) => prev + next);
 }
 
 function getPrevScore(resultArr) {
   return resultArr.slice(-1)[0] ? resultArr.slice(-1)[0] : 0;
-}
-
-function getCurrentScore(inputArr, head, numOfShotToEvalScore) {
-  const scoreArr = inputArr.slice(head, head + numOfShotToEvalScore);
-  return scoreArr.reduce((prev, next) => prev + next);
 }
 
 function countBowlingScore(input) {
