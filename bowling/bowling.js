@@ -1,35 +1,7 @@
-const numOfShotToEvalScore = {
-  strike: 3,
-  spare: 3, // 스페어를 구성하기 위한 샷 2개 + 다음 샷
-  open: 2,
-};
-
-function convertInputToIntArr(input) {
-  const rawArr = input.split('');
-  const convertedStrikeValueArr = rawArr.map(value => value === 'A' ? '10' : value);
-  return convertedStrikeValueArr.map(value => parseInt(value, 10));
-}
-
-function getScoreArr(inputArr, head, numOfShotToEvalScore) {
-  return inputArr.slice(head, head + numOfShotToEvalScore);
-}
-
-function isEnoughToEvalScore(inputArr, head, numOfShotToEvalScore) {
-  const scoreArr = getScoreArr(inputArr, head, numOfShotToEvalScore);
-  return scoreArr.length === numOfShotToEvalScore;
-}
-
-function getCurrentScore(inputArr, head, numOfShotToEvalScore) {
-  const scoreArr = getScoreArr(inputArr, head, numOfShotToEvalScore);
-  return scoreArr.reduce((prev, next) => prev + next);
-}
-
-function getPrevScore(resultArr) {
-  return resultArr.slice(-1)[0] ? resultArr.slice(-1)[0] : 0;
-}
+const utils = require('./utils');
 
 function countBowlingScore(input) {
-  const inputArr = convertInputToIntArr(input);
+  const inputArr = utils.convertInputToIntArr(input);
   const resultArr = [];
 
   let head = 0;
@@ -40,15 +12,15 @@ function countBowlingScore(input) {
       break;
     }
 
-    const prevScore = getPrevScore(resultArr);
+    const prevScore = utils.getPrevScore(resultArr);
 
     // 스트라이크
     if (inputArr[head] === 10) {
-      if (!isEnoughToEvalScore(inputArr, head, numOfShotToEvalScore.strike)) {
+      if (!utils.isEnoughToEvalScore(inputArr, head, utils.numOfShotToEvalScore.strike)) {
         break;
       }
 
-      const totalScore = prevScore + getCurrentScore(inputArr, head, numOfShotToEvalScore.strike);
+      const totalScore = prevScore + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.strike);
 
       resultArr.push(totalScore);
       head += 1; // 현재 샷이 스트라이크면 다음 프레임은 바로 다음 샷이므로 head를 1만 전진시킨다
@@ -59,11 +31,11 @@ function countBowlingScore(input) {
 
     // 스페어
     if (inputArr[head] + inputArr[head + 1] === 10) {
-      if (!isEnoughToEvalScore(inputArr, head, numOfShotToEvalScore.spare)) {
+      if (!utils.isEnoughToEvalScore(inputArr, head, utils.numOfShotToEvalScore.spare)) {
         break;
       }
 
-      const totalScore = prevScore + getCurrentScore(inputArr, head, numOfShotToEvalScore.spare);
+      const totalScore = prevScore + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.spare);
 
       resultArr.push(totalScore);
       head += 2;
@@ -74,11 +46,11 @@ function countBowlingScore(input) {
 
     // 오픈
     if (inputArr[head] + inputArr[head + 1] < 10) {
-      if (!isEnoughToEvalScore(inputArr, head, numOfShotToEvalScore.open)) {
+      if (!utils.isEnoughToEvalScore(inputArr, head, utils.numOfShotToEvalScore.open)) {
         break;
       }
 
-      const totalScore = prevScore + getCurrentScore(inputArr, head, numOfShotToEvalScore.open);
+      const totalScore = prevScore + utils.getCurrentScore(inputArr, head, utils.numOfShotToEvalScore.open);
 
       resultArr.push(totalScore);
       head += 2;
