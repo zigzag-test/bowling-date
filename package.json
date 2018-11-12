@@ -1,0 +1,17 @@
+{
+  "name": "zigzag",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "huskyhoochu <dfg1499@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prettier": "prettier --single-quote --arrow-parens always --write",
+    "lint": "eslint --fix"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "prettier": "^1.15.2"
+  }
+}
