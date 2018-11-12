@@ -95,9 +95,9 @@ function countBowlingScore(input) {
 
 const inputExample = {
   perfect: 'AAAAAAAAAAAA',
-  normal: '82A900519A',
-  longest: '11111111111111111111',
+  incomplete: '82A900519A',
+  fullGame: '817390A63A82AA73A',
   error: '82A930519A',
 };
 
-console.log(countBowlingScore(inputExample.error));
+console.log(countBowlingScore(inputExample.fullGame));
