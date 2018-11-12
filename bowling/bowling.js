@@ -1,6 +1,6 @@
 const numOfShotToEvalScore = {
   strike: 3,
-  spare: 3,
+  spare: 3, // 스페어를 구성하기 위한 샷 2개 + 다음 샷
   open: 2,
 };
 
@@ -36,7 +36,6 @@ function countBowlingScore(input) {
   let frame = 0;
 
   while (head < inputArr.length) {
-    // 10 프레임을 넘기지 않는다
     if (frame >= 10) {
       break;
     }
