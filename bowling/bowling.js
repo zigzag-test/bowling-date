@@ -1,6 +1,10 @@
 const utils = require('./utils');
 
-exports.countBowlingScore = (input) => {
+const countBowlingScore = (input) => {
   const inputArr = utils.convertInputToIntArr(input);
   return utils.loopInputArr(inputArr);
+};
+
+module.exports = {
+  countBowlingScore,
 };

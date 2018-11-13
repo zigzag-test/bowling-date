@@ -43,13 +43,13 @@ const getShotProps = {
   },
 };
 
-exports.convertInputToIntArr = (input) => {
+const convertInputToIntArr = (input) => {
   const rawArr = input.split('');
   const replacedStrikeValueArr = rawArr.map(value => (value === 'A' ? '10' : value));
   return replacedStrikeValueArr.map(value => parseInt(value, 10));
 };
 
-exports.loopInputArr = (inputArr) => {
+const loopInputArr = (inputArr) => {
   const resultArr = [];
   let head = 0;
 
@@ -83,4 +83,15 @@ exports.loopInputArr = (inputArr) => {
   }
 
   return resultArr;
+};
+
+module.exports = {
+  getScoreArr,
+  hasEnoughShotsToGetScore,
+  getCurrentScore,
+  getPrevScore,
+  getShotTypes,
+  getShotProps,
+  convertInputToIntArr,
+  loopInputArr,
 };
