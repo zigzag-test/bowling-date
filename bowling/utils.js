@@ -1,24 +1,18 @@
-exports.convertInputToIntArr = (input) => {
-  const rawArr = input.split('');
-  const replacedStrikeValueArr = rawArr.map(value => (value === 'A' ? '10' : value));
-  return replacedStrikeValueArr.map(value => parseInt(value, 10));
-};
-
 const getScoreArr = (inputArr, head, numOfShots) => inputArr.slice(head, head + numOfShots);
 
-exports.hasEnoughValueToGetScore = (inputArr, head, numOfShots) => {
+const hasEnoughValueToGetScore = (inputArr, head, numOfShots) => {
   const scoreArr = getScoreArr(inputArr, head, numOfShots);
   return scoreArr.length === numOfShots;
 };
 
-exports.getCurrentScore = (inputArr, head, numOfShots) => {
+const getCurrentScore = (inputArr, head, numOfShots) => {
   const scoreArr = getScoreArr(inputArr, head, numOfShots);
   return scoreArr.reduce((prev, next) => prev + next);
 };
 
-exports.getPrevScore = resultArr => (resultArr.slice(-1)[0] ? resultArr.slice(-1)[0] : 0);
+const getPrevScore = resultArr => (resultArr.slice(-1)[0] ? resultArr.slice(-1)[0] : 0);
 
-exports.getShotTypes = (inputArr, head) => {
+const getShotTypes = (inputArr, head) => {
   if (inputArr[head] === 10) {
     return 'strike';
   }
@@ -34,7 +28,7 @@ exports.getShotTypes = (inputArr, head) => {
   return 'error';
 };
 
-exports.getShotProps = {
+const getShotProps = {
   strike: {
     numOfShotsToGetScore: 3,
     amountOfJump: 1, // 스트라이크는 바로 다음 샷이 다음 프레임이므로 1칸만 점프
@@ -47,4 +41,46 @@ exports.getShotProps = {
     numOfShotsToGetScore: 2,
     amountOfJump: 2,
   },
+};
+
+exports.convertInputToIntArr = (input) => {
+  const rawArr = input.split('');
+  const replacedStrikeValueArr = rawArr.map(value => (value === 'A' ? '10' : value));
+  return replacedStrikeValueArr.map(value => parseInt(value, 10));
+};
+
+exports.loopInputArr = (inputArr) => {
+  const resultArr = [];
+  let head = 0;
+
+  while (head < inputArr.length) {
+    const shotTypes = getShotTypes(inputArr, head);
+
+    if (shotTypes === 'error') {
+      return shotTypes;
+    }
+
+    if (
+      !hasEnoughValueToGetScore(
+        inputArr,
+        head,
+        getShotProps[shotTypes].numOfShotsToGetScore,
+      )
+    ) {
+      break;
+    }
+
+    const prevScore = getPrevScore(resultArr);
+    const currentScore = getCurrentScore(
+      inputArr,
+      head,
+      getShotProps[shotTypes].numOfShotsToGetScore,
+    );
+    const totalScore = prevScore + currentScore;
+
+    resultArr.push(totalScore);
+    head += getShotProps[shotTypes].amountOfJump;
+  }
+
+  return resultArr;
 };
