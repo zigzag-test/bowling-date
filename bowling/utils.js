@@ -1,14 +1,8 @@
 const getScoreArr = (inputArr, head, numOfShots) => inputArr.slice(head, head + numOfShots);
 
-const hasEnoughShotsToGetScore = (inputArr, head, numOfShots) => {
-  const scoreArr = getScoreArr(inputArr, head, numOfShots);
-  return scoreArr.length === numOfShots;
-};
+const hasEnoughShotsToGetScore = (scoreArr, numOfShots) => scoreArr.length === numOfShots;
 
-const getCurrentScore = (inputArr, head, numOfShots) => {
-  const scoreArr = getScoreArr(inputArr, head, numOfShots);
-  return scoreArr.reduce((prev, next) => prev + next);
-};
+const getCurrentScore = scoreArr => scoreArr.reduce((prev, next) => prev + next);
 
 const getPrevScore = resultArr => (resultArr.slice(-1)[0] ? resultArr.slice(-1)[0] : 0);
 
@@ -60,26 +54,19 @@ const loopInputArr = (inputArr) => {
       return shotTypes;
     }
 
-    if (
-      !hasEnoughShotsToGetScore(
-        inputArr,
-        head,
-        getShotProps[shotTypes].numOfShotsToGetScore,
-      )
-    ) {
+    const { numOfShotsToGetScore, amountOfJump } = getShotProps[shotTypes];
+    const scoreArr = getScoreArr(inputArr, head, numOfShotsToGetScore);
+
+    if (!hasEnoughShotsToGetScore(scoreArr, numOfShotsToGetScore)) {
       break;
     }
 
     const prevScore = getPrevScore(resultArr);
-    const currentScore = getCurrentScore(
-      inputArr,
-      head,
-      getShotProps[shotTypes].numOfShotsToGetScore,
-    );
+    const currentScore = getCurrentScore(scoreArr);
     const totalScore = prevScore + currentScore;
 
     resultArr.push(totalScore);
-    head += getShotProps[shotTypes].amountOfJump;
+    head += amountOfJump;
   }
 
   return resultArr;
