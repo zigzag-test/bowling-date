@@ -14,6 +14,10 @@ const calcAfterDate = (input, num) => {
   return `${formattedTimeArr[0]}:${formattedTimeArr[1]}:${formattedTimeArr[2]}`;
 };
 
+module.exports = {
+  calcAfterDate,
+};
+
 const inputExample = {
   PM1: 'PM 01:00:00',
   PM11: 'PM 11:59:59',

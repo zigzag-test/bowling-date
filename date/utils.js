@@ -1,4 +1,4 @@
-exports.splitInputValues = (input) => {
+const splitInputValues = (input) => {
   const splitAMPM = input.split(' ');
   const AMPM = splitAMPM[0];
   const rawTime = splitAMPM[1];
@@ -9,7 +9,7 @@ exports.splitInputValues = (input) => {
   };
 };
 
-exports.convertTimeToNum = (time) => {
+const convertTimeToNum = (time) => {
   const splitTime = time.split(':');
 
   const hour = parseInt(splitTime[0], 10);
@@ -22,7 +22,7 @@ exports.convertTimeToNum = (time) => {
   return convertedHour + convertedMin + sec;
 };
 
-exports.convertNumToTime = (num) => {
+const convertNumToTime = (num) => {
   const totalMin = Math.floor(num / 60);
   const hour = Math.floor(totalMin / 60);
   const min = totalMin % 60;
@@ -35,7 +35,7 @@ exports.convertNumToTime = (num) => {
   };
 };
 
-exports.eval24TimeSystem = (timeObj, AMPM) => {
+const eval24TimeSystem = (timeObj, AMPM) => {
   const result = timeObj;
 
   // 오후 시간대: 12를 더해 24시간제에 맞춘다
@@ -56,7 +56,15 @@ exports.eval24TimeSystem = (timeObj, AMPM) => {
   return result;
 };
 
-exports.getFormattedTimeArr = (timeObj) => {
+const getFormattedTimeArr = (timeObj) => {
   const resultArr = [timeObj.hour, timeObj.min, timeObj.sec];
   return resultArr.map(item => (item < 10 ? `0${item}` : item));
+};
+
+module.exports = {
+  splitInputValues,
+  convertTimeToNum,
+  convertNumToTime,
+  eval24TimeSystem,
+  getFormattedTimeArr,
 };
