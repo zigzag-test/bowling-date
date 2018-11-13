@@ -35,12 +35,12 @@ const convertNumToTime = (num) => {
   };
 };
 
-const removeOver24HourRecursive = (hour) => {
+const removeOver24HoursRecursive = (hour) => {
   if (hour < 24) {
     return hour;
   }
 
-  return removeOver24HourRecursive(hour - 24);
+  return removeOver24HoursRecursive(hour - 24);
 };
 
 const eval24TimeSystem = (timeObj, AMPM) => {
@@ -58,7 +58,7 @@ const eval24TimeSystem = (timeObj, AMPM) => {
 
   // 24시간 초과: 24시간 이하가 될 때까지 24를 뺀다
   if (result.hour >= 24) {
-    result.hour = removeOver24HourRecursive(result.hour);
+    result.hour = removeOver24HoursRecursive(result.hour);
   }
 
   return result;
@@ -66,13 +66,14 @@ const eval24TimeSystem = (timeObj, AMPM) => {
 
 const getFormattedTimeArr = (timeObj) => {
   const resultArr = [timeObj.hour, timeObj.min, timeObj.sec];
-  return resultArr.map(item => (item < 10 ? `0${item}` : item));
+  return resultArr.map(item => (item < 10 ? `0${item}` : item.toString()));
 };
 
 module.exports = {
   splitInputValues,
   convertTimeToNum,
   convertNumToTime,
+  removeOver24HoursRecursive,
   eval24TimeSystem,
   getFormattedTimeArr,
 };
