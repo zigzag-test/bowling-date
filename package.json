@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "prettier": "prettier --single-quote --arrow-parens always --write",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "test": "mocha"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
