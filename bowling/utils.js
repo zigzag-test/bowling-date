@@ -1,6 +1,6 @@
 const getScoreArr = (inputArr, head, numOfShots) => inputArr.slice(head, head + numOfShots);
 
-const hasEnoughValueToGetScore = (inputArr, head, numOfShots) => {
+const hasEnoughShotsToGetScore = (inputArr, head, numOfShots) => {
   const scoreArr = getScoreArr(inputArr, head, numOfShots);
   return scoreArr.length === numOfShots;
 };
@@ -61,7 +61,7 @@ exports.loopInputArr = (inputArr) => {
     }
 
     if (
-      !hasEnoughValueToGetScore(
+      !hasEnoughShotsToGetScore(
         inputArr,
         head,
         getShotProps[shotTypes].numOfShotsToGetScore,
