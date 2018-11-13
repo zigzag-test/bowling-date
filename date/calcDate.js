@@ -17,17 +17,3 @@ const calcAfterDate = (input, num) => {
 module.exports = {
   calcAfterDate,
 };
-
-const inputExample = {
-  PM1: 'PM 01:00:00',
-  PM11: 'PM 11:59:59',
-  AM12: 'AM 12:10:00',
-  AM05: 'AM 05:24:03',
-  midnight: 'AM 12:00:00',
-};
-
-console.log(calcAfterDate(inputExample.PM1, 10));
-console.log(calcAfterDate(inputExample.PM11, 1));
-console.log(calcAfterDate(inputExample.AM12, 40));
-console.log(calcAfterDate(inputExample.AM05, 102392));
-console.log(calcAfterDate(inputExample.midnight, 10));
