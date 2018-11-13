@@ -41,7 +41,7 @@ const expectedValues = {
   },
 };
 
-describe('Utils', () => {
+describe('Bowling: Utils', () => {
   it('should be convertInputToIntArr', () => {
     assert.deepStrictEqual(
       utils.convertInputToIntArr(exampleValues.rawInput),

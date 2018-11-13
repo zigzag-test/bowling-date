@@ -15,7 +15,7 @@ const expectedScore = {
   error: 'error',
 };
 
-describe('Bowling', () => {
+describe('Bowling: Games', () => {
   it('should be perfect game', () => {
     assert.deepStrictEqual(
       bowling.countBowlingScore(exampleGames.perfect),

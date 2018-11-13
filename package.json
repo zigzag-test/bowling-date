@@ -7,12 +7,13 @@
   "scripts": {
     "prettier": "prettier --single-quote --arrow-parens always --write",
     "lint": "eslint --fix",
-    "test": "mocha"
+    "test": "mocha **/*.test.js"
   },
   "lint-staged": {
     "**/*.js": [
       "yarn prettier",
       "yarn lint",
+      "yarn test",
       "git add"
     ]
   },
